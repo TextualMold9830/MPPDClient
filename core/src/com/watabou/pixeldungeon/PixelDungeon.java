@@ -195,6 +195,14 @@ public class PixelDungeon extends Game<GameAction> {
 	}
 
 	@Override
+	protected void destroyGame() {
+		super.destroyGame();
+			NetworkScanner.stop();
+			Client.disconnectWithoutSwitch();
+		}
+	}
+
+
 	public void resize(int width, int height) {
 		super.resize(width, height);
 

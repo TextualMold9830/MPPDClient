@@ -1,6 +1,5 @@
 package nikita22007.pixeldungeonmultiplayer;
 
-import android.util.JsonReader;
 
 import com.watabou.utils.Point;
 
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import kotlin.io.ByteStreamsKt;
 
 public class TexturePack {
     private boolean isServerTexturePack = false;

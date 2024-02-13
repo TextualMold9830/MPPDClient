@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Base64;
 
-import android.util.Base64;
 
 public class JavaUtils {
 
@@ -46,7 +46,7 @@ public class JavaUtils {
     }
 
     public static InputStream InputStreamFromBase64(String encoded) {
-        byte[] decoded = Base64.decode(encoded, Base64.DEFAULT);
+        byte[] decoded = Base64.getDecoder().decode(encoded);
         return new ByteArrayInputStream(decoded);
     }
 
