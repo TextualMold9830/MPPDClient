@@ -24,6 +24,7 @@ import com.watabou.glwrap.Texture;
 import java.util.HashMap;
 
 public class TextureCache {
+	public static TextureManagerInterface manager = null;
 
 	private static HashMap<Object,SmartTexture> all = new HashMap<Object, SmartTexture>();
 	

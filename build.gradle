@@ -50,6 +50,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         // compile "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
+        compile 'org.json:json:20240205'
     }
 }
 

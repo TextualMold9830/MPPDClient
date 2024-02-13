@@ -9,3 +9,6 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 eclipse.project {
     name = appName + "-PD-classes"
 }
+dependencies {
+    compile group: 'org.json', name: 'json', version: '20240205'
+}

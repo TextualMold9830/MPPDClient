@@ -28,11 +28,15 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import com.watabou.noosa.Game;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
 public enum Sample {
-	
+
+
 	INSTANCE;
 
 	protected HashMap<Object, Sound> ids = new HashMap<Object, Sound>();
@@ -47,7 +51,27 @@ public enum Sample {
 
 		ids.clear();
 	}
-	
+	public void load( JSONArray assets ) throws JSONException {
+		for (int i = 0; i < assets.length(); i++) {
+			loadingQueue.add( assets.getString(i) );
+		}
+		loadNext();
+	}
+	public int play( JSONObject sampleObj ) throws JSONException {
+		String sample = sampleObj.getString("sample");
+		if (!ids.containsKey(sample)){
+			load(sample);
+		}
+		return play(
+				sample,
+				(float)sampleObj.optDouble("left_volume",sampleObj.optDouble("right_volume", sampleObj.optDouble("volume",1.0f))),
+				(float)sampleObj.optDouble("right_volume",sampleObj.optDouble("left_volume", sampleObj.optDouble("volume",1.0f))),
+				(float)sampleObj.optDouble("rate", 1.0f)
+		);
+	}
+
+
+
 	public void pause() {
 		for (Sound sound : ids.values()) {
 			sound.pause();

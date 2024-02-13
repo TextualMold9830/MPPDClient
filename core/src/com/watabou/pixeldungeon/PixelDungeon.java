@@ -20,6 +20,7 @@ package com.watabou.pixeldungeon;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
+import com.watabou.gltextures.TextureCache;
 import com.watabou.input.NoosaInputProcessor;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
@@ -30,100 +31,102 @@ import com.watabou.pixeldungeon.scenes.PixelScene;
 import com.watabou.pixeldungeon.scenes.TitleScene;
 import com.watabou.utils.PDPlatformSupport;
 import com.watabou.utils.Signal;
+import nikita22007.pixeldungeonmultiplayer.TextureManager;
 
 public class PixelDungeon extends Game<GameAction> {
 
 	public PixelDungeon(final PDPlatformSupport<GameAction> platformSupport) {
 		super( TitleScene.class, platformSupport );
+		TextureCache.manager = TextureManager.INSTANCE;
 
 		Game.version = platformSupport.getVersion();
 
-		com.watabou.utils.Bundle.addAlias(
-			com.watabou.pixeldungeon.items.scrolls.ScrollOfUpgrade.class, 
-			"com.watabou.pixeldungeon.items.scrolls.ScrollOfEnhancement" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.actors.blobs.WaterOfHealth.class, 
-			"com.watabou.pixeldungeon.actors.blobs.Light" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.rings.RingOfMending.class, 
-			"com.watabou.pixeldungeon.items.rings.RingOfRejuvenation" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.wands.WandOfReach.class, 
-			"com.watabou.pixeldungeon.items.wands.WandOfTelekenesis" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.actors.blobs.Foliage.class, 
-			"com.watabou.pixeldungeon.actors.blobs.Blooming" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.actors.buffs.Shadows.class, 
-			"com.watabou.pixeldungeon.actors.buffs.Rejuvenation" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.scrolls.ScrollOfPsionicBlast.class, 
-			"com.watabou.pixeldungeon.items.scrolls.ScrollOfNuclearBlast" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.actors.hero.Hero.class, 
-			"com.watabou.pixeldungeon.actors.Hero" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.actors.mobs.npcs.Shopkeeper.class,
-			"com.watabou.pixeldungeon.actors.mobs.Shopkeeper" );
-		// 1.6.1
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.quest.DriedRose.class,
-			"com.watabou.pixeldungeon.items.DriedRose" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.actors.mobs.npcs.MirrorImage.class,
-			"com.watabou.pixeldungeon.items.scrolls.ScrollOfMirrorImage$MirrorImage" );
-		// 1.6.4
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.rings.RingOfElements.class,
-			"com.watabou.pixeldungeon.items.rings.RingOfCleansing" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.rings.RingOfElements.class,
-			"com.watabou.pixeldungeon.items.rings.RingOfResistance" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.weapon.missiles.Boomerang.class,
-			"com.watabou.pixeldungeon.items.weapon.missiles.RangersBoomerang" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.rings.RingOfPower.class,
-			"com.watabou.pixeldungeon.items.rings.RingOfEnergy" );
-		// 1.7.2
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.plants.Dreamweed.class,
-			"com.watabou.pixeldungeon.plants.Blindweed" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.plants.Dreamweed.Seed.class,
-			"com.watabou.pixeldungeon.plants.Blindweed$Seed" );
-		// 1.7.4
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.weapon.enchantments.Shock.class,
-			"com.watabou.pixeldungeon.items.weapon.enchantments.Piercing" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.weapon.enchantments.Shock.class,
-			"com.watabou.pixeldungeon.items.weapon.enchantments.Swing" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.scrolls.ScrollOfEnchantment.class,
-			"com.watabou.pixeldungeon.items.scrolls.ScrollOfWeaponUpgrade" );
-		// 1.7.5
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.scrolls.ScrollOfEnchantment.class,
-			"com.watabou.pixeldungeon.items.Stylus" );
-		// 1.8.0
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.actors.mobs.FetidRat.class,
-			"com.watabou.pixeldungeon.actors.mobs.npcs.Ghost$FetidRat" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.plants.Rotberry.class,
-			"com.watabou.pixeldungeon.actors.mobs.npcs.Wandmaker$Rotberry" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.plants.Rotberry.Seed.class,
-			"com.watabou.pixeldungeon.actors.mobs.npcs.Wandmaker$Rotberry$Seed" );
-		// 1.9.0
-		com.watabou.utils.Bundle.addAlias( 
-			com.watabou.pixeldungeon.items.wands.WandOfReach.class,
-			"com.watabou.pixeldungeon.items.wands.WandOfTelekinesis" );
-		// 1.9.2
-		com.watabou.utils.Bundle.addAlias(
-			com.watabou.pixeldungeon.items.weapon.enchantments.Slowness.class, 
-			"com.watabou.pixeldungeon.items.weapon.enchantments.Slow");
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.scrolls.ScrollOfUpgrade.class,
+//			"com.watabou.pixeldungeon.items.scrolls.ScrollOfEnhancement" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.actors.blobs.WaterOfHealth.class,
+//			"com.watabou.pixeldungeon.actors.blobs.Light" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.rings.RingOfMending.class,
+//			"com.watabou.pixeldungeon.items.rings.RingOfRejuvenation" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.wands.WandOfReach.class,
+//			"com.watabou.pixeldungeon.items.wands.WandOfTelekenesis" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.actors.blobs.Foliage.class,
+//			"com.watabou.pixeldungeon.actors.blobs.Blooming" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.actors.buffs.Shadows.class,
+//			"com.watabou.pixeldungeon.actors.buffs.Rejuvenation" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.scrolls.ScrollOfPsionicBlast.class,
+//			"com.watabou.pixeldungeon.items.scrolls.ScrollOfNuclearBlast" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.actors.hero.Hero.class,
+//			"com.watabou.pixeldungeon.actors.Hero" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.actors.mobs.npcs.Shopkeeper.class,
+//			"com.watabou.pixeldungeon.actors.mobs.Shopkeeper" );
+//		// 1.6.1
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.quest.DriedRose.class,
+//			"com.watabou.pixeldungeon.items.DriedRose" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.actors.mobs.npcs.MirrorImage.class,
+//			"com.watabou.pixeldungeon.items.scrolls.ScrollOfMirrorImage$MirrorImage" );
+//		// 1.6.4
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.rings.RingOfElements.class,
+//			"com.watabou.pixeldungeon.items.rings.RingOfCleansing" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.rings.RingOfElements.class,
+//			"com.watabou.pixeldungeon.items.rings.RingOfResistance" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.weapon.missiles.Boomerang.class,
+//			"com.watabou.pixeldungeon.items.weapon.missiles.RangersBoomerang" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.rings.RingOfPower.class,
+//			"com.watabou.pixeldungeon.items.rings.RingOfEnergy" );
+//		// 1.7.2
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.plants.Dreamweed.class,
+//			"com.watabou.pixeldungeon.plants.Blindweed" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.plants.Dreamweed.Seed.class,
+//			"com.watabou.pixeldungeon.plants.Blindweed$Seed" );
+//		// 1.7.4
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.weapon.enchantments.Shock.class,
+//			"com.watabou.pixeldungeon.items.weapon.enchantments.Piercing" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.weapon.enchantments.Shock.class,
+//			"com.watabou.pixeldungeon.items.weapon.enchantments.Swing" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.scrolls.ScrollOfEnchantment.class,
+//			"com.watabou.pixeldungeon.items.scrolls.ScrollOfWeaponUpgrade" );
+//		// 1.7.5
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.scrolls.ScrollOfEnchantment.class,
+//			"com.watabou.pixeldungeon.items.Stylus" );
+//		// 1.8.0
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.actors.mobs.FetidRat.class,
+//			"com.watabou.pixeldungeon.actors.mobs.npcs.Ghost$FetidRat" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.plants.Rotberry.class,
+//			"com.watabou.pixeldungeon.actors.mobs.npcs.Wandmaker$Rotberry" );
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.plants.Rotberry.Seed.class,
+//			"com.watabou.pixeldungeon.actors.mobs.npcs.Wandmaker$Rotberry$Seed" );
+//		// 1.9.0
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.wands.WandOfReach.class,
+//			"com.watabou.pixeldungeon.items.wands.WandOfTelekinesis" );
+//		// 1.9.2
+//		com.watabou.utils.Bundle.addAlias(
+//			com.watabou.pixeldungeon.items.weapon.enchantments.Slowness.class,
+//			"com.watabou.pixeldungeon.items.weapon.enchantments.Slow");
 	}
 	
 	@Override
